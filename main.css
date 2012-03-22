@@ -1,0 +1,49 @@
+div.content {
+    width: 33%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+div.messages {
+    height: 85%;
+    max-height: 85%;
+    overflow: scroll;
+    border-bottom: 1px solid black;
+}
+
+div.messages ul {
+    list-style: none;
+}
+
+li span {
+    font-weight: 900;
+}
+
+li.from {
+    background-color: #BBB;
+}
+
+li.to {
+}
+
+div.sendbar {
+}
+
+input#msg {
+    width: 80%;
+    margin: 10px;
+    float: left;
+}
+
+a#send {
+    text-decoration: none;
+    display: block;
+    float: right;
+    padding: 10px;
+}
+
+a#send:hover {
+}
