@@ -9,33 +9,30 @@ mimes['js'] = 'javascript';
 mimes['css'] = 'css';
 mimes['html'] = 'html';
 
-function index(res) {
-    fs.readFile(__dirname + "/index.html", function(err, data) {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        res.write(data);
-        res.end();
-    });
-}
-
-function ext(res, pathname, extension) {
+function load(res, pathname, extension) {
     fs.readFile(__dirname + pathname, function(err, data) {
+        if (err) {
+            res.writeHead(404);
+            return (err);
+        }
+
         res.writeHead(200, {"Content-Type": "text/" + mimes[extension] });
         res.write(data);
-        res.end();
+        return res.end();
     });
 }
 
 function handler(req, res) {
     var pathname = url.parse(req.url).pathname;
     console.log("Request for " + pathname + " received.");
+
+    if (pathname == "/") {
+        pathname = "/index.html";
+    }
     var extension = pathname.split(".");
 
-    if (extension.length > 1) {
-        console.log("Got extension " + extension[1]);
-        ext(res, pathname, extension[1]);
-    } else {
-        index(res);
-    }
+    console.log("Got extension " + extension[1]);
+    load(res, pathname, extension[1]);
 }
 
 io.sockets.on("connection", function(socket) {
